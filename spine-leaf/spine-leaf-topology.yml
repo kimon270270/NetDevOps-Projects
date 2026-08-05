@@ -1,0 +1,83 @@
+name: Spine-Leaf
+
+topology:
+  nodes:
+    kpc-edge-router:
+      kind: arista_ceos
+      image: ceos:4.36.1F
+
+    kpc-spine-l3-1:
+      kind: arista_ceos
+      image: ceos:4.36.1F
+
+    kpc-spine-l3-2:
+      kind: arista_ceos
+      image: ceos:4.36.1F
+
+    kpc-leaf-l3-1:
+      kind: arista_ceos
+      image: ceos:4.36.1F
+
+    kpc-leaf-l3-2:
+      kind: arista_ceos
+      image: ceos:4.36.1F
+
+    kpc-leaf-l3-3:
+      kind: arista_ceos
+      image: ceos:4.36.1F
+
+    kpc-leaf-l3-4:
+      kind: arista_ceos
+      image: ceos:4.36.1F
+
+    kpc-server1:
+      kind: linux
+      image: alpine:latest
+      exec:
+      - ip addr add 192.168.10.123/24 dev eth1
+      - ip link set eth1 up
+      - ip route flush default
+      - ip route add default via 192.168.10.50 dev eth1
+
+    kpc-server2:
+      kind: linux
+      image: alpine:latest
+      exec:
+      - ip addr add 192.168.10.124/24 dev eth1
+      - ip link set eth1 up
+      - ip route flush default
+      - ip route add default via 192.168.10.51 dev eth1
+
+    kpc-server3:
+      kind: linux
+      image: alpine:latest
+      exec:
+      - ip addr add 192.168.10.125/24 dev eth1
+      - ip link set eth1 up
+      - ip route flush default
+      - ip route add default via 192.168.10.52 dev eth1
+
+    kpc-server4:
+      kind: linux
+      image: alpine:latest
+      exec:
+      - ip addr add 192.168.10.126/24 dev eth1
+      - ip link set eth1 up
+      - ip route flush default
+      - ip route add default via 192.168.10.53 dev eth1
+
+  links:
+  - endpoints: [ "kpc-edge-router:eth1", "kpc-spine-l3-1:eth1" ]
+  - endpoints: [ "kpc-edge-router:eth2", "kpc-spine-l3-2:eth1" ]
+  - endpoints: [ "kpc-spine-l3-1:eth3", "kpc-leaf-l3-1:eth1" ]
+  - endpoints: [ "kpc-spine-l3-1:eth4", "kpc-leaf-l3-2:eth1" ]
+  - endpoints: [ "kpc-spine-l3-1:eth5", "kpc-leaf-l3-3:eth1" ]
+  - endpoints: [ "kpc-spine-l3-1:eth6", "kpc-leaf-l3-4:eth1" ]
+  - endpoints: [ "kpc-spine-l3-2:eth3", "kpc-leaf-l3-1:eth2" ]
+  - endpoints: [ "kpc-spine-l3-2:eth4", "kpc-leaf-l3-2:eth2" ]
+  - endpoints: [ "kpc-spine-l3-2:eth5", "kpc-leaf-l3-3:eth2" ]
+  - endpoints: [ "kpc-spine-l3-2:eth6", "kpc-leaf-l3-4:eth2" ]
+  - endpoints: [ "kpc-leaf-l3-1:eth24", "kpc-server1:eth1" ]
+  - endpoints: [ "kpc-leaf-l3-2:eth24", "kpc-server2:eth1" ]
+  - endpoints: [ "kpc-leaf-l3-3:eth24", "kpc-server3:eth1" ]
+  - endpoints: [ "kpc-leaf-l3-4:eth24", "kpc-server4:eth1" ]
