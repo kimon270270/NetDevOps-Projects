@@ -1,0 +1,49 @@
+! Startup-config last modified at Thu Aug  6 04:43:29 2026 by admin
+! device: kpc-leaf-l3-3 (cEOSLab, EOS-4.36.1F-48405728.4361F.1 (engineering build))
+!
+enable password sha512 $6$2FRhdH/q.55SIst5$bUldhpGWrG3KFa.sHYwJvDcUhdejfNDfxkkpH74jcbO1.r8g4wChelHrQFjIEHj7AJJlxRuhZNuu.EuXjL/gU1
+no aaa root
+!
+username admin privilege 15 role network-admin secret sha512 $6$PqBAZ2a9zaz9on.z$rHNVWXEXwEiTzbAnZdBibinITZ8uK0aapWOveMnnI6Aq5F3sHYXrx6pFXO2SKXLZH/MAjXiolzxpWudsIRJH/1
+!
+management api http-commands
+   no shutdown
+!
+no service interface inactive port-id allocation disabled
+!
+service routing protocols model multi-agent
+!
+hostname kpc-leaf-l3-3
+!
+spanning-tree mode mstp
+!
+system l1
+   unsupported speed action error
+   unsupported error-correction action error
+!
+management api gnmi
+   transport grpc default
+!
+management api netconf
+   transport ssh default
+!
+interface Ethernet1
+!
+interface Ethernet2
+!
+interface Ethernet24
+!
+interface Loopback20
+   ip address 192.168.10.52/24
+!
+interface Management0
+   ip address 172.20.20.10/24
+   ipv6 address 3fff:172:20:20::a/64
+!
+ip routing
+!
+ip route 0.0.0.0/0 172.20.20.1
+!
+ipv6 route ::/0 3fff:172:20:20::1
+!
+end
