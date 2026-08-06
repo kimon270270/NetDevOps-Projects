@@ -41,37 +41,37 @@ topology:
       kind: linux
       image: alpine:latest
       exec:
-      - ip addr add 192.168.10.123/24 dev eth1
+      - ip addr add 192.168.10.123/25 dev eth1
       - ip link set eth1 up
       - ip route flush default
-      - ip route add default via 192.168.10.50 dev eth1
+      - ip route add default via 192.168.10.10 dev eth1
 
     kpc-server2:
       kind: linux
       image: alpine:latest
       exec:
-      - ip addr add 192.168.10.124/24 dev eth1
+      - ip addr add 192.168.10.124/25 dev eth1
       - ip link set eth1 up
       - ip route flush default
-      - ip route add default via 192.168.10.51 dev eth1
+      - ip route add default via 192.168.10.10 dev eth1
 
     kpc-server3:
       kind: linux
       image: alpine:latest
       exec:
-      - ip addr add 192.168.10.125/24 dev eth1
+      - ip addr add 192.168.10.125/25 dev eth1
       - ip link set eth1 up
       - ip route flush default
-      - ip route add default via 192.168.10.52 dev eth1
+      - ip route add default via 192.168.10.11 dev eth1
 
     kpc-server4:
       kind: linux
       image: alpine:latest
       exec:
-      - ip addr add 192.168.10.126/24 dev eth1
+      - ip addr add 192.168.10.126/25 dev eth1
       - ip link set eth1 up
       - ip route flush default
-      - ip route add default via 192.168.10.53 dev eth1
+      - ip route add default via 192.168.10.11 dev eth1
 
   links:
   - endpoints: [ "kpc-edge-router:eth1", "kpc-spine-l3-1:eth1" ]
