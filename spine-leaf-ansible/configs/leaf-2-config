@@ -1,4 +1,4 @@
-! Startup-config last modified at Thu Aug  6 04:42:56 2026 by admin
+! Startup-config last modified at Fri Aug  7 00:01:53 2026 by admin
 ! device: kpc-leaf-l3-2 (cEOSLab, EOS-4.36.1F-48405728.4361F.1 (engineering build))
 !
 enable password sha512 $6$4syB971nwi.DY1BP$npZJkKTZjGx1qFqUfcCAUQMdO6IxEkaqBVD/geJB1jAZ3GFsYzg48VNhwV8GjoAfJCtz91WDDWPqbOAI8/KjG/
@@ -28,21 +28,28 @@ management api netconf
    transport ssh default
 !
 interface Ethernet1
+   description "spine 1 - eth4 - 192.168.10.141"
+   no switchport
+   ip address 192.168.10.142/30
 !
 interface Ethernet2
+   description "spine 2 - eth4 - 192.168.10.161"
+   no switchport
+   ip address 192.168.10.162/30
 !
 interface Ethernet24
 !
-interface Loopback20
-   ip address 192.168.10.51/24
-!
 interface Management0
-   ip address 172.20.20.2/24
-   ipv6 address 3fff:172:20:20::2/64
+   ip address 172.20.20.10/24
+   ipv6 address 3fff:172:20:20::a/64
+!
+interface Vlan1
+   ip address 192.168.10.51/25
 !
 ip routing
 !
 ip route 0.0.0.0/0 172.20.20.1
+ip route 0.0.0.0/0 Ethernet1 192.168.10.141
 !
 ipv6 route ::/0 3fff:172:20:20::1
 !
