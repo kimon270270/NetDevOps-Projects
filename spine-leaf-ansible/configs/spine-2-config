@@ -1,4 +1,4 @@
-! Startup-config last modified at Fri Aug  7 00:18:40 2026 by admin
+! Startup-config last modified at Fri Aug  7 22:09:29 2026 by admin
 ! device: kpc-spine-l3-2 (cEOSLab, EOS-4.36.1F-48405728.4361F.1 (engineering build))
 !
 enable password sha512 $6$jl4Fn3cxij9XASyH$6Uhx.67abjRClFq3rY2xsp6MQQzocJrybmE4fEFRy2gd11lHyxebSN/aRLqMZHH4bSDIDUBP7evh6UDT9hBom/
@@ -47,7 +47,7 @@ interface Ethernet4
 interface Ethernet5
    description "leaf 3 - eth 2 - 192.168.10.166"
    no switchport
-   ip address 192.168.10.166/30
+   ip address 192.168.10.165/30
 !
 interface Ethernet6
    description "leaf 4 - eth 2 - 192.168.10.170"
