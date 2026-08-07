@@ -1,0 +1,21 @@
+---
+
+- name: This is a test
+  hosts: router  
+
+  vars_files:
+    - creds/cred.yml
+
+  tasks:
+    - name: Getting interface information from router
+      ansible.builtin.gather_facts:
+        gather_subset:
+          - interfaces
+      register: interface_info
+      
+
+    - name: Displaying interface information from router
+      debug: 
+        var: interface_info
+
+...
