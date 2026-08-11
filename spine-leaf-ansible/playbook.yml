@@ -1,21 +1,134 @@
 ---
 
-- name: This is a test
-  hosts: router  
+- name: All Device Configuration
+  hosts: all
 
   vars_files:
     - creds/cred.yml
 
   tasks:
-    - name: Getting interface information from router
-      ansible.builtin.gather_facts:
-        gather_subset:
-          - interfaces
-      register: interface_info
-      
+    - name: Banner configuration and OSPF Setup
+      ansible.netcommon.cli_config:
+        config: |
+          configure terminal
+          banner motd
+          ---------------------Authorized Users Only!!!------------------------
+          EOF
 
-    - name: Displaying interface information from router
-      debug: 
+          router ospf 1
+          area 0.0.0.0 default-cost 10
+          auto-cost reference-bandwidth 10000
+
+          write memory
+
+          exit
+          
+
+- name: Leaf and Router Configuration
+  hosts: router, leaf
+
+  vars_files:
+    - creds/cred.yml
+
+  tasks:
+    - name: Advertising networks for OSPF from eth1 and eth2
+      ansible.netcommon.cli_config:
+        config: |
+          configure terminal
+          interface Ethernet1
+          ip ospf area 0.0.0.0
+
+          interface Ethernet2
+          ip ospf area 0.0.0.0
+          
+          write memory
+          
+          exit
+
+- name: Spine Configuration
+  hosts: spine
+
+  vars_files:
+    - creds/cred.yml
+
+  tasks:
+    - name: Advertising networks for OSPF from eth1, eth3-6
+      ansible.netcommon.cli_config: 
+        config: |
+          configure terminal
+
+          interface Ethernet 1
+          ip ospf area 0.0.0.0
+
+          interface Ethernet 3-6
+          ip ospf area 0.0.0.0
+
+          write memory
+
+          exit
+
+- name: Router Configuration
+  hosts: router
+
+  vars_files:
+    - creds/cred.yml
+
+  tasks:
+    - name: Default route and defualt-information advertisement configuration
+      ansible.netcommon.cli_config: 
+        config: |
+          configure terminal
+        
+          interface Ethernet 3
+          no switchport
+          ip ospf area 0.0.0.0
+
+          exit
+
+          ip route 0.0.0.0/0 Ethernet 3
+
+          router ospf 1
+          default-information originate
+          router-id 200.200.200.200
+
+          write memory
+
+          exit
+
+
+- name: Information Gathering and Verification
+  hosts: all
+
+  vars_files:
+    - creds/cred.yml
+
+
+  tasks:
+    - name: Getting interface information
+      ansible.netcommon.cli_command:
+        command: show ip interface brief | json
+      register: interface_info
+
+    - name: Displaying interface information
+      debug:
         var: interface_info
+
+    - name: Getting ip route information
+      ansible.netcommon.cli_command:
+        command: show ip route | json
+      register: ip_route_info
+
+    - name: Displaying IP route infromation
+      debug:
+        var: ip_route_info
+
+    - name: Getting OSPF neighbor information
+      ansible.netcommon.cli_command:
+        command: show ip ospf neighbor summary | json
+      register: ospf_neighbor
+      
+    - name: Displaying OSPF neighbor information
+      debug:
+        var: ospf_neighbor
 
 ...
