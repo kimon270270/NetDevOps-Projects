@@ -1,0 +1,63 @@
+! Startup-config last modified at Wed Aug 12 03:26:43 2026 by admin
+! device: spine2 (cEOSLab, EOS-4.36.1F-48405728.4361F.1 (engineering build))
+!
+enable password sha512 $6$b8vaWo6DbS6DP5Mu$m2sfsolnMbg3tDqkfWiZhI9RY/2WrK2CB7tJ1F1ZZXnp8PDL3fV6PdxR5cwOg8XLXXPwPMTP7EN5QUncBvYp40
+no aaa root
+!
+username admin privilege 15 role network-admin secret sha512 $6$U5UKbE2RxjvtEX0g$5MQXJJ4jbrSiAzT5V0w9MfntWlLq8ZoaHcWMu4lT31XAhHvarhEQ/Uxn2JDjnUnO0FQvXgQSd4YA8.yobKoRT1
+!
+management api http-commands
+   no shutdown
+!
+no service interface inactive port-id allocation disabled
+!
+service routing protocols model multi-agent
+!
+hostname spine2
+!
+spanning-tree mode mstp
+!
+system l1
+   unsupported speed action error
+   unsupported error-correction action error
+!
+management api gnmi
+   transport grpc default
+!
+management api netconf
+   transport ssh default
+!
+interface Ethernet1
+   no switchport
+!
+interface Ethernet3
+   description "leaf1 - eth2 - 192.168.10.50"
+   no switchport
+   ip address 192.168.10.49/30
+!
+interface Ethernet4
+   description "leaf2 - eth2 - 192.168.10.54"
+   no switchport
+   ip address 192.168.10.53/30
+!
+interface Ethernet5
+   description "leaf3 - eth2 - 192.168.10.58"
+   no switchport
+   ip address 192.168.10.57/30
+!
+interface Ethernet6
+   description "leaf4 - eth2 - 192.168.10.62"
+   no switchport
+   ip address 192.168.10.61/30
+!
+interface Management0
+   ip address 172.20.20.13/24
+   ipv6 address 3fff:172:20:20::d/64
+!
+ip routing
+!
+ip route 0.0.0.0/0 172.20.20.1
+!
+ipv6 route ::/0 3fff:172:20:20::1
+!
+end

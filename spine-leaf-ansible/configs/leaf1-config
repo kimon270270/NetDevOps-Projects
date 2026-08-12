@@ -1,0 +1,60 @@
+! Startup-config last modified at Wed Aug 12 03:44:11 2026 by admin
+! device: leaf1 (cEOSLab, EOS-4.36.1F-48405728.4361F.1 (engineering build))
+!
+enable password sha512 $6$3HH/Q21w8K0XsA6G$xPROYWPt/UjXCHwa4QRw8ejj.rNoMZJ6jb6pQap1hwpEinGq03/96nw2o61WcpdRKKRDoH3IloZgMSmZHzF7f0
+no aaa root
+!
+username admin privilege 15 role network-admin secret sha512 $6$JTJ.OeTtl5KMdAZY$vkPBLhTB1LZhX7dzQgekNcMUQK5a.rXi/VfxlCeBaZOycevwiYO0gQoffLY3ZQpczzC7zRrG.FApjetk29xqV1
+!
+management api http-commands
+   no shutdown
+!
+no service interface inactive port-id allocation disabled
+!
+service routing protocols model multi-agent
+!
+hostname leaf1
+!
+spanning-tree mode mstp
+!
+system l1
+   unsupported speed action error
+   unsupported error-correction action error
+!
+management api gnmi
+   transport grpc default
+!
+management api netconf
+   transport ssh default
+!
+interface Ethernet1
+   description "spine1 - eth3 - 192.168.10.33"
+   no switchport
+   ip address 192.168.10.34/30
+!
+interface Ethernet2
+   description "spine2 - eth3 - 192.168.10.49"
+   no switchport
+   ip address 192.168.10.50/30
+!
+interface Ethernet23
+   description "server1-1 - eth1 - 192.168.10.2"
+!
+interface Ethernet24
+   description "server1-2 - eth1 - 192.168.10.3"
+!
+interface Management0
+   ip address 172.20.20.15/24
+   ipv6 address 3fff:172:20:20::f/64
+!
+interface Vlan10
+   description "DG for server 1-1 and 1-2"
+   ip address 192.168.10.1/29
+!
+ip routing
+!
+ip route 0.0.0.0/0 172.20.20.1
+!
+ipv6 route ::/0 3fff:172:20:20::1
+!
+end
