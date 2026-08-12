@@ -36,7 +36,7 @@ topology:
       kind: linux
       image: alpine:latest
       exec:
-      - ip addr add 192.186.10.2/29 dev eth1
+      - ip addr add 192.168.10.2/29 dev eth1
       - ip link set eth1 up
       - ip route flush default
       - ip route add default via 192.168.10.1 dev eth1
@@ -45,7 +45,7 @@ topology:
       kind: linux
       image: alpine:latest
       exec:
-      - ip addr add 192.186.10.3/29 dev eth1
+      - ip addr add 192.168.10.3/29 dev eth1
       - ip link set eth1 up
       - ip route flush default
       - ip route add default via 192.168.10.1 dev eth1
@@ -54,7 +54,7 @@ topology:
       kind: linux
       image: alpine:latest
       exec:
-      - ip addr add 192.186.10.10/29 dev eth1
+      - ip addr add 192.168.10.10/29 dev eth1
       - ip link set eth1 up
       - ip route flush default
       - ip route add default via 192.168.10.9 dev eth1
@@ -63,7 +63,7 @@ topology:
       kind: linux
       image: alpine:latest
       exec:
-      - ip addr add 192.186.10.11/29 dev eth1
+      - ip addr add 192.168.10.11/29 dev eth1
       - ip link set eth1 up
       - ip route flush default
       - ip route add default via 192.168.10.9 dev eth1
@@ -72,7 +72,7 @@ topology:
       kind: linux
       image: alpine:latest
       exec:
-      - ip addr add 192.186.10.18/29 dev eth1
+      - ip addr add 192.168.10.18/29 dev eth1
       - ip link set eth1 up
       - ip route flush default
       - ip route add default via 192.168.10.17 dev eth1
@@ -81,7 +81,7 @@ topology:
       kind: linux
       image: alpine:latest
       exec:
-      - ip addr add 192.186.10.19/29 dev eth1
+      - ip addr add 192.168.10.19/29 dev eth1
       - ip link set eth1 up
       - ip route flush default
       - ip route add default via 192.168.10.17 dev eth1
@@ -90,7 +90,7 @@ topology:
       kind: linux
       image: alpine:latest
       exec:
-      - ip addr add 192.186.10.26/29 dev eth1
+      - ip addr add 192.168.10.26/29 dev eth1
       - ip link set eth1 up
       - ip route flush default
       - ip route add default via 192.168.10.25 dev eth1
@@ -99,7 +99,7 @@ topology:
       kind: linux
       image: alpine:latest
       exec:
-      - ip addr add 192.186.10.27/29 dev eth1
+      - ip addr add 192.168.10.27/29 dev eth1
       - ip link set eth1 up
       - ip route flush default
       - ip route add default via 192.168.10.25 dev eth1
