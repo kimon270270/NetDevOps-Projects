@@ -36,73 +36,66 @@ topology:
       kind: linux
       image: alpine:latest
       exec:
-      - ip addr add 192.168.10.2/29 dev eth1
       - ip link set eth1 up
-      - ip route flush default
-      - ip route add default via 192.168.10.1 dev eth1
+      - ip addr add 192.168.10.2/29 dev eth1
+      - ip route replace default via 192.168.10.1 dev eth1
 
     server1-2:
       kind: linux
       image: alpine:latest
       exec:
-      - ip addr add 192.168.10.3/29 dev eth1
       - ip link set eth1 up
-      - ip route flush default
-      - ip route add default via 192.168.10.1 dev eth1
+      - ip addr add 192.168.10.3/29 dev eth1
+      - ip route replace default via 192.168.10.1 dev eth1
 
     server2-1:
       kind: linux
       image: alpine:latest
       exec:
-      - ip addr add 192.168.10.10/29 dev eth1
       - ip link set eth1 up
-      - ip route flush default
-      - ip route add default via 192.168.10.9 dev eth1
+      - ip addr add 192.168.10.10/29 dev eth1
+      - ip route replace default via 192.168.10.9 dev eth1
 
     server2-2:
       kind: linux
       image: alpine:latest
       exec:
-      - ip addr add 192.168.10.11/29 dev eth1
       - ip link set eth1 up
-      - ip route flush default
-      - ip route add default via 192.168.10.9 dev eth1
+      - ip addr add 192.168.10.11/29 dev eth1
+      - ip route replace default via 192.168.10.9 dev eth1
 
     server3-1:
       kind: linux
       image: alpine:latest
       exec:
-      - ip addr add 192.168.10.18/29 dev eth1
       - ip link set eth1 up
-      - ip route flush default
-      - ip route add default via 192.168.10.17 dev eth1
+      - ip addr add 192.168.10.18/29 dev eth1
+      - ip route replace default via 192.168.10.17 dev eth1
 
     server3-2:
       kind: linux
       image: alpine:latest
       exec:
-      - ip addr add 192.168.10.19/29 dev eth1
       - ip link set eth1 up
-      - ip route flush default
-      - ip route add default via 192.168.10.17 dev eth1
+      - ip addr add 192.168.10.19/29 dev eth1
+      - ip route replace default via 192.168.10.17 dev eth1
 
     server4-1:
       kind: linux
       image: alpine:latest
       exec:
-      - ip addr add 192.168.10.26/29 dev eth1
       - ip link set eth1 up
-      - ip route flush default
-      - ip route add default via 192.168.10.25 dev eth1
+      - ip addr add 192.168.10.26/29 dev eth1
+      - ip route replace default via 192.168.10.25 dev eth1
 
     server4-2:
       kind: linux
       image: alpine:latest
       exec:
-      - ip addr add 192.168.10.27/29 dev eth1
       - ip link set eth1 up
-      - ip route flush default
-      - ip route add default via 192.168.10.25 dev eth1
+      - ip addr add 192.168.10.27/29 dev eth1
+      - ip route replace default via 192.168.10.25 dev eth1
+
   links:
   - endpoints: [ "spine1:eth3", "leaf1:eth1" ]
   - endpoints: [ "spine1:eth4", "leaf2:eth1" ]
